@@ -1,8 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:p="http://www.springframework.org/schema/p"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       default-autowire="byName"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+    <!-- 配置扫描器 -->
+    <context:component-scan base-package="dao"></context:component-scan>
+
+    <!-- 配置数据库 -->
+    <tx:annotation-driven transaction-manager="transactionManager"></tx:annotation-driven>
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+
+    </bean>
+
     <bean id="student" class="entity.Student">
         <property name="stuNo" value="2"></property>
         <property name="stuName" value="ls"></property>
@@ -28,8 +42,9 @@
         -->
 
     </bean>
+    <!-- 对象引用自动装配 -->
     <bean id="course" class="entity.Course"
-          p:courseHoue="50" p:courseName="java语言" p:teacher-ref="teacher">
+          p:courseHoue="50" p:courseName="java语言" autowire="byName">
         <!-- 命令空间赋值 -->
         <!--
         <property name="courseName" value="C语言"></property>
@@ -79,6 +94,7 @@
         </property>
         <property name="props">
             <props>
+                <!-- 赋空值 <null/> 没有value标签 -->
                 <prop key="prop1">prop_a</prop>
                 <prop key="prop2">prop_b</prop>
             </props>

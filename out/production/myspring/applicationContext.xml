@@ -2,6 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:p="http://www.springframework.org/schema/p"
+       default-autowire="byName"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
     <bean id="student" class="entity.Student">
         <property name="stuNo" value="2"></property>
@@ -28,8 +29,9 @@
         -->
 
     </bean>
+    <!-- 对象引用自动装配 -->
     <bean id="course" class="entity.Course"
-          p:courseHoue="50" p:courseName="java语言" p:teacher-ref="teacher">
+          p:courseHoue="50" p:courseName="java语言" autowire="byName">
         <!-- 命令空间赋值 -->
         <!--
         <property name="courseName" value="C语言"></property>
@@ -79,6 +81,7 @@
         </property>
         <property name="props">
             <props>
+                <!-- 赋空值 <null/> 没有value标签 -->
                 <prop key="prop1">prop_a</prop>
                 <prop key="prop2">prop_b</prop>
             </props>

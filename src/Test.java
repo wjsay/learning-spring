@@ -47,7 +47,7 @@ public class Test {
     }
     public static void main(String[] args) {
         //learnCourseWithIoc();
-        //learnCourseWithDI();
-        learnDIWithCollection();
+        learnCourseWithDI();
+        //learnDIWithCollection();
     }
 }
