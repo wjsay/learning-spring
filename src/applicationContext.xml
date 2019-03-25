@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
     <bean id="student" class="entity.Student">
         <property name="stuNo" value="2"></property>
@@ -9,4 +10,79 @@
     </bean>
     <bean id="JavaCourse" class="newinstance.JavaCourse"></bean>
     <bean id="HTMLCourse" class="newinstance.HTMLCourse"></bean>
+
+    <bean id="teacher" class="entity.Teacher">
+        <!-- set方法 -->
+        <!--
+        <property name="name" value="Mr. Li"></property>
+        <property name="age" value="30"></property>
+        -->
+
+        <!-- 构造器方法 -->
+        <constructor-arg value="Mr. Sun"></constructor-arg>
+        <constructor-arg value="32"></constructor-arg>
+
+        <!-- index, name, type。建议添加name用于区分构造方法
+        <constructor-arg value="Mr. Sun" index="0"></constructor-arg>
+        <constructor-arg value="32" index="1"></constructor-arg>
+        -->
+
+    </bean>
+    <bean id="course" class="entity.Course"
+          p:courseHoue="50" p:courseName="java语言" p:teacher-ref="teacher">
+        <!-- 命令空间赋值 -->
+        <!--
+        <property name="courseName" value="C语言"></property>
+        <property name="courseHoue" value="45"></property>
+        <property name="teacher" ref="teacher"></property>
+        -->
+    </bean>
+
+    <bean id="collections" class="entity.AllCollection">
+        <property name="list">
+            <list>
+                <value>羽毛球</value>
+                <value>画画</value>
+                <value>看定影</value>
+            </list>
+        </property>
+        <property name="strings">
+            <array>
+                <value>羽毛球1</value>
+                <value>画画1</value>
+                <value>看定影1</value>
+            </array>
+        </property>
+        <property name="map">
+            <map>
+                <entry>
+                    <key>
+                        <value>foot</value>
+                    </key>
+                    <value>足球</value>
+                </entry>
+                <entry>
+                    <key><value>paint</value></key>
+                    <value>足球</value>
+                </entry>
+                <entry>
+                    <key><value>movie</value></key>
+                    <value>看定影</value>
+                </entry>
+            </map>
+        </property>
+        <property name="set">
+            <set>
+                <value>elem_b</value>
+                <value>elem_a</value>
+            </set>
+        </property>
+        <property name="props">
+            <props>
+                <prop key="prop1">prop_a</prop>
+                <prop key="prop2">prop_b</prop>
+            </props>
+        </property>
+    </bean>
+
 </beans>

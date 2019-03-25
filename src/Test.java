@@ -1,8 +1,8 @@
+import entity.AllCollection;
 import entity.Student;
-import factory.CourseFactory;
-import newinstance.ICourse;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import entity.Course;
 
 
 public class Test {
@@ -24,7 +24,7 @@ public class Test {
 
     public static void learnCourseWithFactory () {
         Student student = new Student();
-        student.learn("j");
+        student.learn("java");
     }
 
     public static void learnCourseWithIoc() {
@@ -33,7 +33,21 @@ public class Test {
         student.learn("HTML");
     }
 
+    // set注入
+    public static void learnCourseWithDI() {
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        Course course = (Course)context.getBean("course");
+        course.showInfo();
+    }
+
+    public static void learnDIWithCollection() {
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        AllCollection collections = (AllCollection)context.getBean("collections");
+        System.out.println(collections.showInfo());
+    }
     public static void main(String[] args) {
-        learnCourseWithIoc();
+        //learnCourseWithIoc();
+        //learnCourseWithDI();
+        learnDIWithCollection();
     }
 }
