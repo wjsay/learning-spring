@@ -7,8 +7,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
     <!-- 配置扫描器，使用注解 另一种注入方法-->
 
-    <context:component-scan base-package="dao.impl"></context:component-scan>
-    <context:component-scan base-package="service.impl"></context:component-scan>
+    <context:component-scan base-package="dao.impl, service.impl"></context:component-scan>
     <context:component-scan base-package="aop"></context:component-scan>
 
     <!-- 配置数据库 -->
@@ -122,8 +121,20 @@
     <!-- aop -->
     <aop:config>
         <!-- 配置切入点 -->
-        <aop:pointcut id="pointcut"  expression="execution(public void service.impl.StudentServiceImpl.addStudent(entity.Student))"></aop:pointcut>
+        <aop:pointcut id="pointcut"  expression="execution(public * service.impl.StudentServiceImpl.addStudent(..))"></aop:pointcut>
         <aop:advisor advice-ref="LogBefore" pointcut-ref="pointcut"></aop:advisor>
     </aop:config>
-
+    <!--不允许写入一个内 -->
+    <aop:config>
+        <aop:pointcut id="pointcut_after" expression="execution(public * service.impl.StudentServiceImpl.deleteStudentByNo(..))"></aop:pointcut>
+        <aop:advisor advice-ref="LogAfter" pointcut-ref="pointcut_after"/>
+    </aop:config>
+    <aop:config>
+        <aop:pointcut id="pointcut_error" expression="execution(public * service.impl.StudentServiceImpl.addStudent(..))"></aop:pointcut>
+        <aop:advisor advice-ref="ExceptionAdvice" pointcut-ref="pointcut_error"></aop:advisor>
+    </aop:config>
+    <aop:config>
+        <aop:pointcut id="pointcut_around" expression="execution(public * service.impl.StudentServiceImpl.addStudent(..))"></aop:pointcut>
+        <aop:advisor advice-ref="LogAround" pointcut-ref="pointcut_around"></aop:advisor>
+    </aop:config>
 </beans>

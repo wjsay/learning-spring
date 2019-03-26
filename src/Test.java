@@ -53,6 +53,7 @@ public class Test {
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
         IStudentService studentService = (IStudentService) context.getBean("studentService");
         studentService.addStudent(new Student());
+        studentService.deleteStudentByNo(1);
     }
     public static void learnAop() {
         // NoClassDefFoundError 意味着缺少jar包

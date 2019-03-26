@@ -26,6 +26,12 @@ public class StudentServiceImpl implements IStudentService {
         rollbackFor = {SQLException.class, ArithmeticException.class})
     @Override
     public void addStudent(Student student) {
+        // studentDao = null;  // 测试异常通知时添加的
         studentDao.addStudent(student);
+    }
+
+    @Override
+    public void deleteStudentByNo(int no) {
+        studentDao.deleteStudentByNo(no);
     }
 }
