@@ -118,23 +118,26 @@
     </bean>
     -->
 
-    <!-- aop -->
-    <aop:config>
-        <!-- 配置切入点 -->
-        <aop:pointcut id="pointcut"  expression="execution(public * service.impl.StudentServiceImpl.addStudent(..))"></aop:pointcut>
-        <aop:advisor advice-ref="LogBefore" pointcut-ref="pointcut"></aop:advisor>
-    </aop:config>
-    <!--不允许写入一个内 -->
-    <aop:config>
-        <aop:pointcut id="pointcut_after" expression="execution(public * service.impl.StudentServiceImpl.deleteStudentByNo(..))"></aop:pointcut>
-        <aop:advisor advice-ref="LogAfter" pointcut-ref="pointcut_after"/>
-    </aop:config>
-    <aop:config>
-        <aop:pointcut id="pointcut_error" expression="execution(public * service.impl.StudentServiceImpl.addStudent(..))"></aop:pointcut>
-        <aop:advisor advice-ref="ExceptionAdvice" pointcut-ref="pointcut_error"></aop:advisor>
-    </aop:config>
-    <aop:config>
-        <aop:pointcut id="pointcut_around" expression="execution(public * service.impl.StudentServiceImpl.addStudent(..))"></aop:pointcut>
-        <aop:advisor advice-ref="LogAround" pointcut-ref="pointcut_around"></aop:advisor>
-    </aop:config>
+    <!-- 使用注解-->
+    <aop:aspectj-autoproxy/>
+    <!--&lt;!&ndash; aop &ndash;&gt;-->
+    <!--<aop:config>-->
+        <!--&lt;!&ndash; 配置切入点 &ndash;&gt;-->
+        <!--<aop:pointcut id="pointcut"  expression="execution(public * service.impl.StudentServiceImpl.addStudent(..))"></aop:pointcut>-->
+        <!--<aop:advisor advice-ref="LogBefore" pointcut-ref="pointcut"></aop:advisor>-->
+    <!--</aop:config>-->
+    <!--&lt;!&ndash;不允许写入一个内 &ndash;&gt;-->
+    <!--<aop:config>-->
+        <!--<aop:pointcut id="pointcut_after" expression="execution(public * service.impl.StudentServiceImpl.deleteStudentByNo(..))"></aop:pointcut>-->
+        <!--<aop:advisor advice-ref="LogAfter" pointcut-ref="pointcut_after"/>-->
+    <!--</aop:config>-->
+    <!--<aop:config>-->
+        <!--<aop:pointcut id="pointcut_error" expression="execution(public * service.impl.StudentServiceImpl.addStudent(..))"></aop:pointcut>-->
+        <!--<aop:advisor advice-ref="ExceptionAdvice" pointcut-ref="pointcut_error"></aop:advisor>-->
+    <!--</aop:config>-->
+    <!--<aop:config>-->
+        <!--<aop:pointcut id="pointcut_around" expression="execution(public * service.impl.StudentServiceImpl.addStudent(..))"></aop:pointcut>-->
+        <!--<aop:advisor advice-ref="LogAround" pointcut-ref="pointcut_around"></aop:advisor>-->
+    <!--</aop:config>-->
+
 </beans>
