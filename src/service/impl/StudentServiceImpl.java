@@ -13,17 +13,19 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import service.IStudentService;
 
-@Component("studentService")
+import java.sql.SQLException;
+
+@Service("studentService")
 public class StudentServiceImpl implements IStudentService {
     @Autowired   // 通过类型注入，若有多个同类型的bean，报错，空指针异常
-    StudentDaoImpl studentDao;
+    @Qualifier("StudentDaoImpl")
+    IStudentDao studentDao;
 
 
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRED,
+        rollbackFor = {SQLException.class, ArithmeticException.class})
     @Override
     public void addStudent(Student student) {
-        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-        studentDao = (StudentDaoImpl) context.getBean("StudentDaoImpl");
         studentDao.addStudent(student);
     }
 }

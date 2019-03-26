@@ -1,8 +1,10 @@
+import dao.impl.StudentDaoImpl;
 import entity.AllCollection;
 import entity.Student;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import entity.Course;
+import service.IStudentService;
 import service.impl.StudentServiceImpl;
 
 
@@ -48,12 +50,19 @@ public class Test {
     }
 
     public static void learnTransaction() {
-        new StudentServiceImpl().addStudent(new Student());
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        IStudentService studentService = (IStudentService) context.getBean("studentService");
+        studentService.addStudent(new Student());
+    }
+    public static void learnAop() {
+        // NoClassDefFoundError 意味着缺少jar包
+        learnTransaction();
     }
     public static void main(String[] args) {
         //learnCourseWithIoc();
         //learnCourseWithDI();
         //learnDIWithCollection();
         learnTransaction();
+        //learnAop();
     }
 }
