@@ -3,6 +3,7 @@ import entity.Student;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import entity.Course;
+import service.impl.StudentServiceImpl;
 
 
 public class Test {
@@ -45,9 +46,14 @@ public class Test {
         AllCollection collections = (AllCollection)context.getBean("collections");
         System.out.println(collections.showInfo());
     }
+
+    public static void learnTransaction() {
+        new StudentServiceImpl().addStudent(new Student());
+    }
     public static void main(String[] args) {
         //learnCourseWithIoc();
-        learnCourseWithDI();
+        //learnCourseWithDI();
         //learnDIWithCollection();
+        learnTransaction();
     }
 }

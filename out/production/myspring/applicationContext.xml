@@ -2,12 +2,15 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:tx="http://www.springframework.org/schema/tx"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
-    <!-- 配置扫描器 -->
-    <context:component-scan base-package="dao"></context:component-scan>
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+    <!-- 配置扫描器，使用注解 另一种注入方法-->
+
+    <context:component-scan base-package="dao.impl"></context:component-scan>
+    <context:component-scan base-package="service.impl"></context:component-scan>
 
     <!-- 配置数据库 -->
+    <!-- 需要的jar commons-pool commons-dbcp mysql-connect-java -->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
         <property name="url" value="jdbc:mysql://127.0.0.1:3306/db_spring"></property>
@@ -104,5 +107,14 @@
             </props>
         </property>
     </bean>
+    <!-- 使用注解替换 -->
+    <!--
+    <bean id="StudentDaoImpl" class="dao.impl.StudentDaoImpl"></bean>
+    -->
+    <!--
+    <bean id="studentService" class="service.impl.StudentServiceImpl">
+        <property name="studentDao" ref="StudentDaoImpl"></property>
+    </bean>
+    -->
 
 </beans>
